@@ -1,0 +1,23 @@
+services:
+  # web:
+  #   build: .
+  #   ports:
+  #     - "8000:5000"
+  #   # volumes:
+  #   #   - .:/code
+  #   #   - logvolume01:/var/log
+  #   depends_on:
+  #     - repo
+  repo:
+    image: postgres:16.0
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: home-stone-groan
+      POSTGRES_USER: script_runner
+      POSTGRES_DB: datascrape
+    ports:
+      - 5432:5432
+
+
+# volumes:
+#   logvolume01: {}
