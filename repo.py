@@ -7,25 +7,38 @@ conn = psycopg2.connect(
     user="script_runner",
     password="home-stone-groan")
 
-# Open a cursor to perform database operations
-cur = conn.cursor()
 
-cur.execute(
-    "INSERT INTO dumps (tag, contents) VALUES (%s, %s)",
-    ('hgfre11', '123sf'))
-conn.commit()
+def insert(key, val):
+    try:
+        # Open a cursor to perform database operations
+        cur = conn.cursor()
 
-# Execute a query
-# cur.execute("SELECT * FROM dumps")
+        cur.execute(
+            "INSERT INTO dumps (tag, contents) VALUES (%s, %s)",
+            (key, val))
+        conn.commit()
 
-# Retrieve query results
-cur.execute(
-    """
-    select
-        tag, contents
-    from dumps
-"""
-)
-records = cur.fetchall()
+        # Execute a query
+        # cur.execute("SELECT * FROM dumps")
 
-print(records)
+        # Retrieve query results
+        cur.execute(
+            """
+            select
+                tag, contents
+            from dumps
+        """
+        )
+        # records = cur.fetchall()
+
+        # print(records)
+
+    except BaseException as e:
+        print(e)
+        conn.rollback()
+    else:
+        conn.commit()
+
+
+def close():
+    conn.close()

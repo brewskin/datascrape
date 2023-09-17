@@ -1,4 +1,6 @@
 from bs4 import BeautifulSoup
+from bs4 import Tag
+from bs4 import NavigableString
 import requests
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -10,27 +12,34 @@ def getSoupResults(soup: BeautifulSoup) -> dict:
         child_result_dict = {}
 
         for index, child in enumerate(element.children):
-            index_name = f"child_{index}"
+            if isinstance(child, Tag):
+                if child.name == 'a':
+                    continue
+                print(child.name)
+                child_string = child.get_text()
+                if child_string is None:
+                    continue
+                elif child_string == '':
+                    continue
 
-            this_type = type(child)
-            print(this_type)
-
-            text = child.get_text().strip()
-            if text:
-                child_result_dict[index_name] = text.encode(
+                results_dict[f"{element.name}_{child.name}_{index}"] = child_string.encode(
                     'utf-8').decode('utf-8')
 
-        results_dict[element.name] = child_result_dict
+            elif isinstance(child, NavigableString):
+                text = child.get_text().strip()
+                if text:
+                    results_dict[f"{element.name}_{child.name}_{index}"] = text.encode(
+                        'utf-8').decode('utf-8')
 
-    links_result = {}
-    links = soup.find_all('a')
-    for link in links:
-        link_text = link.get_text()
-        href = link.get('href')
-        if href:
-            links_result[link_text] = href
+    # links_result = {}
+    # links = soup.find_all('a')
+    # for link in links:
+    #     link_text = link.get_text()
+    #     href = link.get('href')
+    #     if href:
+    #         links_result[link_text] = href
 
-    results_dict["page_links"] = links_result
+    # results_dict["page_links"] = links_result
 
     return results_dict
 

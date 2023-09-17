@@ -4,6 +4,7 @@ from parsers import SeleniumParser
 import openai
 from urllib.parse import urlparse
 import json
+from repo import insert
 
 # OpenAI API configuration
 openai.api_key = 'YOUR_OPENAI_API_KEY'
@@ -55,16 +56,16 @@ def home():
         # Convert the results_dict to a JSON string
         json_result = json.dumps(parsed_elements, indent=4)
 
-        # Specify the file path where you want to save the JSON data
-        file_path = "output.json"
+        for key in parsed_elements:
+            insert(key=key, val=parsed_elements[key])
 
+        # Specify the file path where you want to save the JSON data
+        file_path = "testdata/output.json"
         # Save the JSON data to a file
         with open(file_path, "w") as json_file:
             json_file.write(json_result)
 
-        print(f"JSON data saved to {file_path}")
-
-        return render_template('result.html', summary='Read File', title=parsed_elements['title'], abstract=parsed_elements['html'])
+        return render_template('result.html', summary='Read File', title=parsed_elements['head_title_1'], abstract=parsed_elements['html_body_3'])
     return render_template('index.html')
 
 
