@@ -1,13 +1,12 @@
 from flask import Flask, render_template, request
 from parsers import DefaultParser
 from parsers import SeleniumParser
-import openai
 from urllib.parse import urlparse
 import json
 from repo import insert
 
-# OpenAI API configuration
-openai.api_key = 'YOUR_OPENAI_API_KEY'
+
+
 
 
 def get_domain_name(url: str) -> str:
@@ -26,17 +25,6 @@ def scrape_webpage(url: str) -> dict:
 
 # Rest of your code
 
-
-# Summarization function using ChatGPT
-def generate_summary(text):
-    response = openai.Completion.create(
-        engine='text-davinci-003',
-        prompt=text,
-        max_tokens=100,
-        temperature=0.7
-    )
-    # Extract and return the generated summary from the response
-    return response.choices[0].text.strip()
 
 
 # Flask web application

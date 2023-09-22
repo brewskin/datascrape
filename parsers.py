@@ -9,7 +9,6 @@ from selenium.webdriver.common.by import By
 def getSoupResults(soup: BeautifulSoup) -> dict:
     results_dict = {}
     for element in soup.find_all(recursive=True):
-        child_result_dict = {}
 
         for index, child in enumerate(element.children):
             if isinstance(child, Tag):
