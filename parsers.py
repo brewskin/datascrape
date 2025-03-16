@@ -7,38 +7,62 @@ from selenium.webdriver.common.by import By
 
 
 def getSoupResults(soup: BeautifulSoup) -> dict:
+    """
+    Extract article text from a BeautifulSoup object.
+
+    Args:
+        soup: BeautifulSoup object containing the HTML content
+
+    Returns:
+        dict: Dictionary containing extracted article content with structured keys
+    """
     results_dict = {}
-    for element in soup.find_all(recursive=True):
 
-        for index, child in enumerate(element.children):
-            if isinstance(child, Tag):
-                if child.name == 'a':
-                    continue
-                print(child.name)
-                child_string = child.get_text()
-                if child_string is None:
-                    continue
-                elif child_string == '':
-                    continue
+    # Try to find the main article content
+    article_containers = []
 
-                results_dict[f"{element.name}_{child.name}_{index}"] = child_string.encode(
-                    'utf-8').decode('utf-8')
+    # Look for common article container elements
+    for container in ['article', 'main', 'div.article', 'div.content', 'div.post']:
+        if '.' in container:
+            tag, class_name = container.split('.')
+            found = soup.find_all(tag, class_=class_name)
+        else:
+            found = soup.find_all(container)
 
-            elif isinstance(child, NavigableString):
-                text = child.get_text().strip()
-                if text:
-                    results_dict[f"{element.name}_{child.name}_{index}"] = text.encode(
-                        'utf-8').decode('utf-8')
+        if found:
+            article_containers.extend(found)
 
-    # links_result = {}
-    # links = soup.find_all('a')
-    # for link in links:
-    #     link_text = link.get_text()
-    #     href = link.get('href')
-    #     if href:
-    #         links_result[link_text] = href
+    # If no specific article containers found, use the body
+    if not article_containers:
+        article_containers = [soup.body] if soup.body else [soup]
 
-    # results_dict["page_links"] = links_result
+    # Process each potential article container
+    for container_idx, container in enumerate(article_containers):
+        # Extract headings
+        for heading_idx, heading in enumerate(container.find_all(['h1', 'h2', 'h3', 'h4', 'h5', 'h6'])):
+            if heading.get_text(strip=True):
+                key = f"heading_{heading.name}_{container_idx}_{heading_idx}"
+                results_dict[key] = heading.get_text(strip=True)
+
+        # Extract paragraphs
+        for p_idx, paragraph in enumerate(container.find_all('p')):
+            if paragraph.get_text(strip=True):
+                key = f"paragraph_{container_idx}_{p_idx}"
+                results_dict[key] = paragraph.get_text(strip=True)
+
+        # Extract lists
+        for list_idx, list_elem in enumerate(container.find_all(['ul', 'ol'])):
+            for item_idx, item in enumerate(list_elem.find_all('li')):
+                if item.get_text(strip=True):
+                    key = f"list_{list_elem.name}_{container_idx}_{list_idx}_{item_idx}"
+                    results_dict[key] = item.get_text(strip=True)
+
+    # If no structured content was found, fall back to the original method
+    if not results_dict:
+        for top_level_child in soup.find_all(recursive=True):
+            for index, child in enumerate(top_level_child.descendants):
+                if isinstance(child, NavigableString) and child.strip():
+                    results_dict[f"{top_level_child.name}_{index}"] = child.strip()
 
     return results_dict
 
@@ -83,29 +107,3 @@ class SeleniumParser:
             return {}
 
         return getSoupResults(soup)
-
-
-def digIntoContent(child, child_result_dict) -> dict:
-    for index, c_contents in enumerate(child.contents):
-        child_result_dict[c_contents.name] = c_contents.text
-
-    return child_result_dict
-
-
-def tryGetName(item) -> str:
-    name = ''
-    try:
-        name = item.name
-    except:
-        return ''
-
-    return name
-
-
-def hasContent(item) -> bool:
-    try:
-        content = item.content
-    except:
-        return False
-
-    return True

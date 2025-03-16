@@ -3,14 +3,80 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Result Page</title>
-    <!-- Add any CSS or JS here -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Summary Result</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f8fa;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            width: 90%;
+            max-width: 800px;
+            text-align: left;
+        }
+
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+
+        h2 {
+            color: #34495e;
+            margin-bottom: 1.5rem;
+            font-size: 1.4rem;
+            font-weight: 500;
+            line-height: 1.4;
+        }
+
+        p {
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 1.5rem;
+            color: #3498db;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 1.5rem;
+                width: 95%;
+            }
+        }
+    </style>
 </head>
 
 <body>
-    <h1>{{ title }}</h1>
-    <h2>{{ abstract }}</h2>
-    <p>{{ summary }}</p>
+    <div class="container">
+        <h1>{{ title }}</h1>
+        <h2>{{ abstract }}</h2>
+        <div class="summary">
+            {{ summary }}
+        </div>
+        <a href="/" class="back-link">← Back to URL Summarizer</a>
+    </div>
 </body>
 
 </html>

@@ -6,9 +6,6 @@ import json
 from repo import insert
 
 
-
-
-
 def get_domain_name(url: str) -> str:
     parsed_url = urlparse(url)
     domain = parsed_url.netloc.split('.')
@@ -26,9 +23,7 @@ def scrape_webpage(url: str) -> dict:
 # Rest of your code
 
 
-
 # Flask web application
-
 app = Flask(__name__)
 
 
@@ -53,7 +48,7 @@ def home():
         with open(file_path, "w") as json_file:
             json_file.write(json_result)
 
-        return render_template('result.html', summary='Read File', title=parsed_elements['head_title_1'], abstract=parsed_elements['html_body_3'])
+        return render_template('result.html', summary='Read File', title='The Process is Complete', abstract=len(parsed_elements))
     return render_template('index.html')
 
 

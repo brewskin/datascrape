@@ -1,0 +1,7 @@
+CREATE TABLE articles (
+    id SERIAL PRIMARY KEY,
+    article_name VARCHAR(255) NOT NULL,
+    title VARCHAR(255) NOT NULL,
+    summary TEXT,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);

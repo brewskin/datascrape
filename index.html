@@ -1,17 +1,104 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>URL Summarizer</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f8fa;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            width: 90%;
+            max-width: 600px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        label {
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            display: block;
+            text-align: left;
+        }
+
+        input[type="text"] {
+            padding: 12px 16px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        input[type="text"]:focus {
+            border-color: #3498db;
+            box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+            outline: none;
+        }
+
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 0.5rem;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 1.5rem;
+                width: 95%;
+            }
+        }
+    </style>
 </head>
 
 <body>
-    <h1>URL Summarizer</h1>
-    <form method="POST" action="/">
-        <label for="url">Enter a URL:</label>
-        <input type="text" id="url" name="url" required>
-        <button type="submit">Submit</button>
-    </form>
+    <div class="container">
+        <h1>URL Summarizer</h1>
+        <form method="POST" action="/">
+            <div class="form-group">
+                <label for="url">Enter a URL:</label>
+                <input type="text" id="url" name="url" placeholder="https://example.com" required>
+            </div>
+            <button type="submit">Summarize</button>
+        </form>
+    </div>
 </body>
 
 </html>
