@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request
 from parsers import DefaultParser
 from parsers import SeleniumParser
+from parsers import get_debug_logs
 from urllib.parse import urlparse
 import json
 from repo import insert
@@ -48,7 +49,23 @@ def home():
         with open(file_path, "w") as json_file:
             json_file.write(json_result)
 
-        return render_template('result.html', summary='Read File', title='The Process is Complete', abstract=len(parsed_elements))
+        # Get debug logs
+        debug_log_html = get_debug_logs()
+
+        # Create a summary that includes both the result count and debug logs
+        summary_html = f"""
+        <div class="results-summary">
+            <p>Number of elements extracted: {len(parsed_elements)}</p>
+        </div>
+        <div class="debug-logs">
+            {debug_log_html}
+        </div>
+        """
+
+        return render_template('result.html',
+                               summary=summary_html,
+                               title='URL Parsing Results',
+                               abstract=f"Parsed {url}" if len(parsed_elements) > 0 else f"No results found for {url}")
     return render_template('index.html')
 
 

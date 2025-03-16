@@ -59,10 +59,52 @@
             text-decoration: underline;
         }
 
+        /* Debug logs styling */
+        .debug-logs {
+            margin-top: 2rem;
+            padding: 1rem;
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.9rem;
+            white-space: pre-wrap;
+            overflow-x: auto;
+        }
+
+        .debug-logs h3 {
+            color: #495057;
+            margin-top: 0;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .debug-logs ul {
+            margin: 0;
+            padding-left: 1.5rem;
+        }
+
+        .debug-logs li {
+            margin-bottom: 0.5rem;
+            line-height: 1.4;
+        }
+
+        .results-summary {
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background-color: #e9f7fe;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+
         @media (max-width: 480px) {
             .container {
                 padding: 1.5rem;
                 width: 95%;
+            }
+
+            .debug-logs {
+                font-size: 0.8rem;
             }
         }
     </style>
@@ -73,7 +115,7 @@
         <h1>{{ title }}</h1>
         <h2>{{ abstract }}</h2>
         <div class="summary">
-            {{ summary }}
+            {{ summary|safe }}
         </div>
         <a href="/" class="back-link">← Back to URL Summarizer</a>
     </div>
