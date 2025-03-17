@@ -87,6 +87,92 @@
         .debug-logs li {
             margin-bottom: 0.5rem;
             line-height: 1.4;
+            padding: 0.25rem 0.5rem;
+            border-radius: 3px;
+        }
+
+        /* Log level styling */
+        .log-info {
+            background-color: #f8f9fa;
+            color: #212529;
+        }
+
+        .log-success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .log-warning {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+
+        .log-error {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        /* Log controls */
+        .log-controls {
+            margin-bottom: 1rem;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .log-controls button {
+            padding: 0.25rem 0.5rem;
+            background-color: #e9ecef;
+            border: 1px solid #ced4da;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+
+        .log-controls button:hover {
+            background-color: #dee2e6;
+        }
+
+        /* Log sections */
+        .log-section {
+            margin-bottom: 1rem;
+            border: 1px solid #e9ecef;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .log-section h4 {
+            margin: 0;
+            padding: 0.5rem;
+            background-color: #e9ecef;
+            font-size: 1rem;
+        }
+
+        /* Log content */
+        .log-header {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+
+        .log-indicator {
+            display: inline-block;
+            width: 1rem;
+            text-align: center;
+            margin-right: 0.5rem;
+        }
+
+        .log-content {
+            padding: 0.5rem;
+            margin-left: 1.5rem;
+            background-color: #f8f9fa;
+            border-top: 1px solid #e9ecef;
+        }
+
+        .log-container {
+            max-height: 500px;
+            overflow-y: auto;
+            border: 1px solid #e9ecef;
+            border-radius: 3px;
         }
 
         .results-summary {
@@ -95,6 +181,34 @@
             background-color: #e9f7fe;
             border-radius: 4px;
             font-weight: 500;
+        }
+
+        /* Extracted text styling */
+        .extracted-text {
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background-color: #ffffff;
+            border: 1px solid #e1e4e8;
+            border-radius: 4px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .extracted-text h3 {
+            color: #24292e;
+            margin-top: 0;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+            border-bottom: 1px solid #e1e4e8;
+            padding-bottom: 0.5rem;
+        }
+
+        .text-content {
+            line-height: 1.6;
+            font-size: 1rem;
+            color: #24292e;
+            max-height: 400px;
+            overflow-y: auto;
+            padding-right: 0.5rem;
         }
 
         @media (max-width: 480px) {

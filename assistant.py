@@ -52,11 +52,28 @@ def home():
         # Get debug logs
         debug_log_html = get_debug_logs()
 
-        # Create a summary that includes both the result count and debug logs
+        # Create a summary that includes the full text, result count, and debug logs
+        full_text = parsed_elements.get("full_text", "")
+
+        # Format the full text for HTML display
+        formatted_full_text = ""
+        if full_text:
+            # Convert newlines to <br> tags
+            html_text = full_text.replace('\n', '<br>')
+            formatted_full_text = f"""
+            <div class="extracted-text">
+                <h3>Extracted Text:</h3>
+                <div class="text-content">
+                    {html_text}
+                </div>
+            </div>
+            """
+
         summary_html = f"""
         <div class="results-summary">
             <p>Number of elements extracted: {len(parsed_elements)}</p>
         </div>
+        {formatted_full_text}
         <div class="debug-logs">
             {debug_log_html}
         </div>
