@@ -3,8 +3,6 @@ from bs4 import Tag
 from bs4 import NavigableString
 import requests
 from selenium import webdriver
-from selenium.webdriver.common.by import By
-import json
 
 # Global debug log list to store debug information
 debug_logs = []
