@@ -43,7 +43,11 @@ Docker should automatically pull the postgres docker image if it does not exist.
 docker compose up -d
 ```
 
-Use your preferred database IDE and run the [migrations](/migrations/).
+Run the migration docker.
+
+```sh
+docker compose up flyway
+```
 
 Finally, run the Flask app.
 
